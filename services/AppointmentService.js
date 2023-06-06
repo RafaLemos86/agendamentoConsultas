@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Appointment = require("../models/Appointment");
+const AppointmentFactory = require("../factories/AppoitmentFactory");
 
 // criando collection
 const user = mongoose.model("appointment", Appointment)
@@ -38,8 +39,23 @@ class AppointmentServices {
                 return { user: await user.find(), status: true }
             } else {
                 // somente as nao finalizadas
-                return { user: await user.find({ "finished": false }), status: true }
-            }
+
+                // pega no banco todas as nao finalizadas
+                var appos = await user.find({ "finished": false })
+
+                // inicializa array das consultas
+                var appointments = []
+
+                //para cada consulta, faz o Build (formata) e poe no array
+                appos.forEach(element => {
+                    appointments.push(AppointmentFactory.Build(element))
+                });
+
+                // retornar users e status
+                return { users: appointments, status: true }
+            };
+
+
         } catch (err) {
             console.log(err)
             return { status: false, msg: err }

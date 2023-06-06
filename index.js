@@ -52,12 +52,12 @@ app.post("/create", async (req, res) => {
 
 // resgatando usuários
 app.get("/users", async (req, res) => {
-    var user = await appointmentServices.GetAll(false);
+    var users = await appointmentServices.GetAll(false);
 
-    if (user.status) {
-        res.json(user.user)
+    if (users.status) {
+        res.json(users.users)
     } else {
-        res.send(user.msg)
+        res.send(users.msg)
     }
 })
 
