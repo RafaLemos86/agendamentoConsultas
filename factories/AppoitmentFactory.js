@@ -23,10 +23,10 @@ class AppointmentFactory {
         var endDate = new Date(year, month, day, hour, minutes, 0, 0)
 
         // horario brasileiro e -3 em relacao ao GMT
-        startDate.setHours(startDate.getHours() - 3)
+        // startDate.setHours(startDate.getHours() - 3)
 
         // horario final e uma hora depois do inicial
-        endDate.setHours(endDate.getHours() - 2)
+        endDate.setHours(endDate.getHours() - 1)
 
 
         // retorna data formatada

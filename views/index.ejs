@@ -16,12 +16,15 @@
 </body>
  
 <script>
- 
+    
+    // renderizando calendario
     document.addEventListener('DOMContentLoaded', function() {
             var calendarId = document.getElementById('calendar');
+
             var calendar = new FullCalendar.Calendar(calendarId, {
             initialView: 'dayGridMonth',
-            locale: 'pt-br'
+            locale: 'pt-br',
+            events: "/users"
             });
 
             calendar.render();
