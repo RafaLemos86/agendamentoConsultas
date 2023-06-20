@@ -61,6 +61,16 @@ app.get("/users", async (req, res) => {
     }
 })
 
+// pegando usuario pelo id para gerar a tela de cada usuario
+app.get("/event/:id", async (req, res) => {
+    var id = req.params.id
+    var userId = await appointmentServices.getById(id)
+
+    res.render("event", { appo: userId })
+
+
+})
+
 
 
 app.listen(8080, () => {

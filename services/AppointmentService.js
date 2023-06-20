@@ -61,6 +61,15 @@ class AppointmentServices {
             return { status: false, msg: err }
         }
 
+    };
+
+    async getById(id) {
+        try {
+            return (await user.findOne({ "_id": id }))
+
+        } catch (err) {
+            console.log(err)
+        }
     }
 }
 
