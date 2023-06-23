@@ -93,6 +93,13 @@ app.get("/resultsearch", async (req, res) => {
 
 
 
+setInterval(async () => {
+    var test = await appointmentServices.sendNotification()
+    var aaa = test.users
+    console.log(aaa)
+
+}, 5000)
+
 app.listen(8080, () => {
     console.log("servidor rodando")
 });

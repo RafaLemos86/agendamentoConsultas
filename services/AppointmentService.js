@@ -6,7 +6,7 @@ const AppointmentFactory = require("../factories/AppoitmentFactory");
 const user = mongoose.model("appointment", Appointment)
 
 class AppointmentServices {
-    async Create(name, email, cpf, description, date, time, finished = false) {
+    async Create(name, email, cpf, description, date, time, finished = false, notified = false) {
 
         // inserindo no bd
 
@@ -17,7 +17,8 @@ class AppointmentServices {
             description,
             date,
             time,
-            finished
+            finished,
+            notified
         })
 
         // salvando
@@ -87,6 +88,14 @@ class AppointmentServices {
     async search(emailCpf) {
         try {
             return (await user.find().or([{ email: emailCpf }, { cpf: emailCpf }]))
+        } catch (err) {
+            console.log(err)
+        }
+    };
+
+    async sendNotification() {
+        try {
+            return (await this.user.GetAll(false))
         } catch (err) {
             console.log(err)
         }
