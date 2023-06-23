@@ -92,11 +92,28 @@ app.get("/resultsearch", async (req, res) => {
 })
 
 
-
+// mandar notificao faltando 1h para os usuarios
 setInterval(async () => {
-    var test = await appointmentServices.sendNotification()
-    var aaa = test.users
-    console.log(aaa)
+    // pegando os user que n estao finalizados
+    var appos = await appointmentServices.sendNotification()
+
+    // 1 hora em milisegundos
+    const hour = 1000 * 60 * 60
+
+    // para cada usuario
+    appos.forEach(appo => {
+        // pegando a hora de inicio em milisegundos
+        var date = appo.start.getTime()
+
+        // diferenca das datas
+        var gap = date - Date.now()
+
+        // se a diferenca for menor ou igual que a hora, mande a notificacao
+        if (gap <= hour) {
+            console.log(appo.title)
+            console.log("mande")
+        }
+    })
 
 }, 5000)
 

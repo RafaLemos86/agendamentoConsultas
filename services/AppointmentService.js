@@ -95,7 +95,8 @@ class AppointmentServices {
 
     async sendNotification() {
         try {
-            return (await this.user.GetAll(false))
+            var appos = await this.GetAll(false)
+            return (appos.users)
         } catch (err) {
             console.log(err)
         }
