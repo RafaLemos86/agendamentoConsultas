@@ -71,6 +71,27 @@ class AppointmentServices {
             console.log(err)
         }
     }
+
+    // finalizando a consulta
+    async finish(id) {
+        try {
+            await user.findByIdAndUpdate(id, { "finished": true })
+            return true
+        } catch (err) {
+            console.log(err)
+            return false
+        }
+
+    }
+
+    async search(emailCpf) {
+        try {
+            return (await user.find().or([{ email: emailCpf }, { cpf: emailCpf }]))
+        } catch (err) {
+            console.log(err)
+        }
+    };
+
 }
 
 module.exports = new AppointmentServices()

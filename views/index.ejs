@@ -5,14 +5,67 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema</title>
- 
+
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js"></script>
+    
+
+    <style>
+        /* Estilos básicos do botão */
+        .button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #4CAF50; /* Cor de fundo */
+        color: #fff; /* Cor do texto */
+        font-size: 16px;
+        font-weight: bold;
+        text-decoration: none;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+        }
+
+        /* Efeito de hover */
+        .button:hover {
+        background-color: #45a049; /* Cor de fundo ao passar o mouse */
+        }
+
+        /* Efeito de foco */
+        .button:focus {
+        outline: none;
+        box-shadow: 0 0 5px #45a049; /* Sombra ao receber foco */
+        }
+
+        /* Efeito de clique */
+        .button:active {
+        background-color: #3e8e41; /* Cor de fundo ao clicar */
+        }
+
+        /* Estilos para botão desabilitado */
+        .button.disabled {
+        background-color: #cccccc; /* Cor de fundo desabilitado */
+        cursor: not-allowed;
+        }
+
+        /* Estilos para botão desabilitado ao passar o mouse */
+        .button.disabled:hover {
+        background-color: #cccccc;
+        }
+
+    </style>
+
 </head>
 <body>
     <h1 style="text-align: center;"> Sistema de Agendamento</h1>
     <hr>
-     <div id="calendar" style="width: 50%; margin-left: 25%;" >
+    <div id="calendar" style="width: 50%; margin-left: 25%;" >
+        <button type="button" class="button" onclick="appoiment(0)">Agendar Consulta</button>
+        <br>
+        <button type="button" class="button" style="background-color: rgb(26, 64, 160);" onclick="appoiment(1)">Todas as consultas</button>
     </div>
+
+    
+    
+ 
 </body>
  
 <script>
@@ -33,6 +86,15 @@
 
             calendar.render();
         });
+
+    function appoiment(where){
+        if (where == 0){
+            window.location.href = "/create"
+        } else {
+            window.location.href = "/list"
+        }
+        
+    }
  
 </script>
 </html>

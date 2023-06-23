@@ -67,33 +67,42 @@
 </head>
 
 <body>
- <div class="container">
-    <h1>Campos Paciente, Email e CPF</h1>
+    <div class="container">
+        <form action="resultsearch" method="get">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Digite o email ou CPF..." name="search" id="search">
+                <div class="input-group-append">
+                    <button class="btn btn-primary">Buscar</button>
+                </div>
+            </div>
+        </form>
 
-    <div class="form-group">
-      <label>Paciente:</label>
-      <p class="form-control-static"> <%= appo.name %></p>
+        <br>
+
+        <h1>Campos Paciente, Email e CPF</h1>
+
+        <%  appointments.forEach(appo => { %>
+
+            <hr>
+            <div class="form-group">
+                <label>Paciente:</label>
+                <p class="form-control-static"> <%= appo.name %></p>
+            </div>
+
+            <div class="form-group">
+                <label>Email:</label>
+                <p class="form-control-static"> <%= appo.email %></p>
+            </div>
+
+            <div class="form-group">
+                <label>CPF:</label>
+                <p class="form-control-static"> <%= appo.cpf %></p>
+            </div>
+
+            <hr>
+
+        <% })  %>
     </div>
-
-    <div class="form-group">
-      <label>Email:</label>
-      <p class="form-control-static"> <%= appo.email %></p>
-    </div>
-
-    <div class="form-group">
-      <label>CPF:</label>
-      <p class="form-control-static"> <%= appo.cpf %></p>
-    </div>
-
-    <div class="form-group">
-      <form action="finish" method="POST" >
-          <input type="hidden" name="id" value="<%= appo._id %>">
-          <button class="btn btn-finalizar">Finalizar consulta</button>
-      </form>
-        
-    </div>
-
-  </div>
 
   <!-- Inclua os arquivos JavaScript do Bootstrap -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

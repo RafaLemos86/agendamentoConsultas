@@ -65,10 +65,30 @@ app.get("/users", async (req, res) => {
 app.get("/event/:id", async (req, res) => {
     var id = req.params.id
     var userId = await appointmentServices.getById(id)
-
     res.render("event", { appo: userId })
+})
 
+// formulario de finalizacao de consulta
 
+app.post("/event/finish", async (req, res) => {
+    var id = req.body.id
+    await appointmentServices.finish(id)
+    res.redirect("/")
+});
+
+// listagem de usuarios
+
+app.get("/list", async (req, res) => {
+    var appos = await appointmentServices.GetAll(true);
+    res.render("list", { appointments: appos.user })
+
+});
+
+// funcionalidade do searcj
+app.get("/resultsearch", async (req, res) => {
+    var query = req.query.search
+    var appos = await appointmentServices.search(query)
+    res.render("list", { appointments: appos })
 })
 
 
