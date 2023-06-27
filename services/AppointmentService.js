@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Appointment = require("../models/Appointment");
 const AppointmentFactory = require("../factories/AppoitmentFactory");
+const nodemailer = require("nodemailer");
 
 // criando collection
 const user = mongoose.model("appointment", Appointment)
@@ -93,10 +94,57 @@ class AppointmentServices {
         }
     };
 
+    // enviar email para os usuarios
     async sendNotification() {
         try {
+            // informacoes pegas do site mailtrap
+            var transport = nodemailer.createTransport({
+                host: "sandbox.smtp.mailtrap.io",
+                port: 587,
+                auth: {
+                    user: "44ce60b9344e53",
+                    pass: "e88545b7f825ad"
+                }
+            });
+
             var appos = await this.GetAll(false)
-            return (appos.users)
+
+            // para cada usuario
+            appos.users.forEach(async appo => {
+                // pegando a hora de inicio em milisegundos
+                var date = appo.start.getTime()
+                // diferenca das datas
+                var gap = date - Date.now()
+                // 1 hora em milisegundos
+                const hour = 1000 * 60 * 60
+
+
+                // se a diferenca for menor ou igual que a hora, mande a notificacao
+                if (gap <= hour) {
+                    // se ainda nao foi notificado
+                    if (!appo.notified) {
+
+                        // mudar o campo notified
+                        await user.findByIdAndUpdate(appo.id, { notified: true })
+
+                        transport.sendMail({
+                            from: "Rafael Lemos <rafael.lemos@gmail.com>",
+                            to: appo.email,
+                            subject: "Consulta em 1h!",
+                            text: "Sua consulta no laboratório será em menos de 1h"
+                        }).then(mensage => {
+                            console.log(mensage)
+
+                        }).catch(err => {
+                            console.log(err)
+                        })
+                    } else {
+                        return
+                    }
+                }
+            })
+
+
         } catch (err) {
             console.log(err)
         }

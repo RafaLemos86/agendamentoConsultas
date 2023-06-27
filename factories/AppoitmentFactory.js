@@ -35,7 +35,8 @@ class AppointmentFactory {
             title: simpleAppoitment.name + " - " + simpleAppoitment.description,
             start: startDate,
             end: endDate,
-            notified: simpleAppoitment.notified
+            notified: simpleAppoitment.notified,
+            email: simpleAppoitment.email
         };
 
         return result
